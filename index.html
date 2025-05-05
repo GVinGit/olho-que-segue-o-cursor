@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sol Fofo</title>
+  <style>
+    body {
+      margin: 0;
+      background: #aee2ff;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .sun {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, #ffd55c, #f9a602);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 100px #ffc107;
+    }
+
+
+    .eyes {
+      position: relative;
+      display: flex;
+      gap: 30px;
+    }
+
+    .eye {
+      width: 30px;
+      height: 30px;
+      background: white;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .pupil {
+      width: 12px;
+      height: 12px;
+      background: black;
+      border-radius: 50%;
+      transition: transform 0.1s;
+    }
+
+    .smile {
+      position: absolute;
+      bottom: 40px;
+      width: 40px;
+      height: 50px;
+      border-bottom: 4px solid #613b00;
+      border-radius: 0 0 40px 30px;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="sun">
+    <div class="rays"></div>
+    <div class="eyes">
+      <div class="eye"><div class="pupil" id="pupil1"></div></div>
+      <div class="eye"><div class="pupil" id="pupil2"></div></div>
+    </div>
+    <div class="smile"></div>
+  </div>
+
+  <script>
+    const pupil1 = document.getElementById('pupil1');
+    const pupil2 = document.getElementById('pupil2');
+
+    document.addEventListener('mousemove', (e) => {
+      const x = e.clientX;
+      const y = e.clientY;
+      const eyes = [pupil1, pupil2];
+
+      eyes.forEach((pupil) => {
+        const rect = pupil.getBoundingClientRect();
+        const eyeCenterX = rect.left + rect.width / 2;
+        const eyeCenterY = rect.top + rect.height / 2;
+        const dx = x - eyeCenterX;
+        const dy = y - eyeCenterY;
+        const angle = Math.atan2(dy, dx);
+        const radius = 5;
+        const offsetX = Math.cos(angle) * radius;
+        const offsetY = Math.sin(angle) * radius;
+        pupil.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+      });
+    });
+  </script>
+</body>
+</html>
