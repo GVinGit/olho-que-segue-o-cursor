@@ -27,7 +27,6 @@
       box-shadow: 0 0 100px #ffc107;
     }
 
-
     .eyes {
       position: relative;
       display: flex;
@@ -43,6 +42,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      transition: all 0.2s; /* Smooth transition for blinking */
     }
 
     .pupil {
@@ -66,14 +66,23 @@
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
+
+    /* Blinking animation */
+    .eye.blink {
+      height: 5px; /* Simulates the eye closing */
+      background: black; /* Color of the closed eye */
+    }
   </style>
 </head>
 <body>
   <div class="sun">
-    <div class="rays"></div>
     <div class="eyes">
-      <div class="eye"><div class="pupil" id="pupil1"></div></div>
-      <div class="eye"><div class="pupil" id="pupil2"></div></div>
+      <div class="eye" id="leftEye">
+        <div class="pupil" id="pupil1"></div>
+      </div>
+      <div class="eye" id="rightEye">
+        <div class="pupil" id="pupil2"></div>
+      </div>
     </div>
     <div class="smile"></div>
   </div>
@@ -81,7 +90,10 @@
   <script>
     const pupil1 = document.getElementById('pupil1');
     const pupil2 = document.getElementById('pupil2');
+    const leftEye = document.getElementById('leftEye');
+    const rightEye = document.getElementById('rightEye');
 
+    // Make pupils follow the cursor
     document.addEventListener('mousemove', (e) => {
       const x = e.clientX;
       const y = e.clientY;
@@ -100,6 +112,20 @@
         pupil.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
       });
     });
+
+    // Function to blink
+    function blink() {
+      leftEye.classList.add('blink');
+      rightEye.classList.add('blink');
+
+      setTimeout(() => {
+        leftEye.classList.remove('blink');
+        rightEye.classList.remove('blink');
+      }, 200); // Duration of the blink
+    }
+
+    // Blink every 3-6 seconds randomly
+    setInterval(blink, Math.random() * 3000 + 3000);
   </script>
 </body>
 </html>
