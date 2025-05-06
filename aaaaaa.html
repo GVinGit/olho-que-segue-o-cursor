@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mudanças Climáticas</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #e0f7fa;
+      color: #333;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #00796b;
+      color: white;
+      padding: 20px 200px;
+      text-align: center;
+    }
+
+    .content {
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .content h1 {
+      color: #004d40;
+      font-size: 2.5rem;
+    }
+
+    .content p {
+      margin: 20px 0;
+      font-size: 1.1rem;
+    }
+
+    .content button {
+      display: block;
+      margin: 20px 0;
+      padding: 10px 20px;
+      background: #00796b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .content button:hover {
+      background: #004d40;
+    }
+
+    .causa-efeito {
+      display: none;
+      padding: 20px;
+      background: #f1f8e9;
+      border: 1px solid #c8e6c9;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    .sun {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, #ffd55c, #f9a602);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 50px #ffc107;
+    }
+
+    .eyes {
+      position: relative;
+      display: flex;
+      gap: 10px;
+    }
+
+    .eye {
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.2s;
+    }
+
+    .pupil {
+      width: 6px;
+      height: 6px;
+      background: black;
+      border-radius: 50%;
+      transition: transform 0.1s;
+    }
+  </style>
+</head>
+<body>
+  <div class="sun">
+    <div class="eyes">
+      <div class="eye" id="leftEye">
+        <div class="pupil" id="pupil1"></div>
+      </div>
+      <div class="eye" id="rightEye">
+        <div class="pupil" id="pupil2"></div>
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <h1>Mudanças Climáticas</h1>
+  </header>
+
+  <div class="content">
+    <h1>O Problema das Mudanças Climáticas</h1>
+    <p>
+      As mudanças climáticas são uma das questões mais urgentes do nosso tempo.
+      Elas afetam a vida de bilhões de pessoas ao redor do mundo, causando desastres naturais
+      mais frequentes, aumento do nível do mar e impactos significativos nos ecossistemas.
+    </p>
+    <p>
+      É essencial tomar medidas para mitigar os efeitos das mudanças climáticas e
+      proteger nosso planeta para as gerações futuras.
+    </p>
+    <button onclick="showCausaEfeito()">Veja Causa e Efeito</button>
+
+    <div class="causa-efeito" id="causaEfeito">
+      <h2>Causa e Efeito das Mudanças Climáticas</h2>
+      <p><strong>Causas:</strong> Queima de combustíveis fósseis, desmatamento, emissão de gases de efeito estufa.</p>
+      <p><strong>Efeitos:</strong> Aumento da temperatura global, derretimento de gelo polar, eventos climáticos extremos.</p>
+    </div>
+  </div>
+
+  <script>
+    const pupil1 = document.getElementById('pupil1');
+    const pupil2 = document.getElementById('pupil2');
+
+    // Pupil follows cursor
+    document.addEventListener('mousemove', (e) => {
+      const x = e.clientX;
+      const y = e.clientY;
+      const eyes = [pupil1, pupil2];
+
+      eyes.forEach((pupil) => {
+        const rect = pupil.getBoundingClientRect();
+        const eyeCenterX = rect.left + rect.width / 2;
+        const eyeCenterY = rect.top + rect.height / 2;
+        const dx = x - eyeCenterX;
+        const dy = y - eyeCenterY;
+        const angle = Math.atan2(dy, dx);
+        const radius = 5;
+        const offsetX = Math.cos(angle) * radius;
+        const offsetY = Math.sin(angle) * radius;
+        pupil.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+      });
+    });
+
+    // Show "Causa e Efeito" section
+    function showCausaEfeito() {
+      const section = document.getElementById('causaEfeito');
+      section.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
